@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');
 var app = express();
 
-var mongoDB = 'mongodb://DBUSERNAME:DBPASSWORD.mlab.com:45107/local_libraryar';
+var mongoDB = 'mongodb://DBUSERNAME:DBPASSWORD@ds045107.mlab.com:45107/local_libraryar';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 
