@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var moment = require('moment')
 var Schema = mongoose.Schema;
 
 var AuthorSchema = new Schema(
@@ -18,11 +18,22 @@ AuthorSchema
   return this.family_name + ', ' + this.first_name;
 });
 
-// Virtual for author's lifespan
+AuthorSchema
+.virtual('date_of_birth_formatted')
+.get(function(){
+    return moment(this.date_of_birth).format('YYYY-MM-DD');
+});
+
+AuthorSchema
+.virtual('date_of_death_formatted')
+.get(function(){
+    return moment(this.date_of_death).format('YYYY-MM-DD');
+});
+
 AuthorSchema
 .virtual('lifespan')
 .get(function () {
-  return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString();
+  return moment(this.date_of_death_formatted) - moment(this.date_of_birth_formatted);
 });
 
 // Virtual for author's URL
